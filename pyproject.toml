@@ -27,9 +27,9 @@ classifiers = [
 dependencies = [ 'rich', 'sqlmodel', 'typer' ]
 
 [project.urls]
-Documentation = "https://github.com/unknown/sqlmodel-base#readme"
-Issues = "https://github.com/unknown/sqlmodel-base/issues"
-Source = "https://github.com/unknown/sqlmodel-base"
+Documentation = "https://github.com/waylonwalker/sqlmodel-base#readme"
+Issues = "https://github.com/waylonwalker/sqlmodel-base/issues"
+Source = "https://github.com/waylonwalker/sqlmodel-base"
 
 [tool.hatch.version]
 path = "sqlmodel_base/__about__.py"
