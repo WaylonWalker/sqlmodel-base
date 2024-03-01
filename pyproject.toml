@@ -24,12 +24,15 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = [ 'rich', 'sqlmodel', 'typer' ]
+dependencies = [ 'rich', 'sqlmodel', 'typer', 'iterfzf']
 
 [project.urls]
 Documentation = "https://github.com/waylonwalker/sqlmodel-base#readme"
 Issues = "https://github.com/waylonwalker/sqlmodel-base/issues"
 Source = "https://github.com/waylonwalker/sqlmodel-base"
+
+[project.scripts]
+sqlmodel-base = "sqlmodel_base.cli:app"
 
 [tool.hatch.version]
 path = "sqlmodel_base/__about__.py"
