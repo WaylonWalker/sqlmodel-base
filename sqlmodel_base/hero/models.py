@@ -1,9 +1,8 @@
 from typing import Optional
 
-from pydantic import BaseModel, validator
+from pydantic import validator
 from rich.console import Console
-from sqlalchemy import func
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Field
 
 from sqlmodel_base.base import Base
 

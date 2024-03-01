@@ -1,12 +1,8 @@
-import json
 
-import typer
-from iterfzf import iterfzf
 from rich.console import Console
 
 from sqlmodel_base.database import get_engine
 from sqlmodel_base.hero.models import Hero
-from sqlmodel_base.team.models import Team
 
 engine = get_engine()
 

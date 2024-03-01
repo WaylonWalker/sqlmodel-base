@@ -1,13 +1,14 @@
-import json
 from typing import Optional
 
 import typer
+import uvicorn
+from fastapi import APIRouter, FastAPI
 from iterfzf import iterfzf
-from pydantic import BaseModel, validator
+from pydantic import BaseModel
 from pydantic_core._pydantic_core import PydanticUndefinedType
 from rich.console import Console
 from sqlalchemy import func
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Session, SQLModel, select
 
 from sqlmodel_base.database import get_engine
 
@@ -178,6 +179,31 @@ class Base(SQLModel):
         console.print(item)
 
     @classmethod
+    def api(cls):
+        api = FastAPI(
+            title="FastAPI",
+            version="0.1.0",
+            docs_url=None,
+            redoc_url=None,
+            openapi_url=None,
+            # openapi_tags=tags_metadata,
+            # dependencies=[Depends(set_user), Depends(set_prefers)],
+        )
+
+        api.include_router(cls.router())
+
+        return api
+
+    @classmethod
+    def router(cls):
+        router = APIRouter()
+        router.add_api_route("/get/", cls.get, methods=["GET"])
+        router.add_api_route("/list/", cls.all, methods=["GET"])
+        router.add_api_route("/create/", cls.interactive_create, methods=["POST"])
+        router.add_api_route("/update/", cls.interactive_update, methods=["PUT"])
+        return router
+
+    @classmethod
     @property
     def cli(cls):
         app = typer.Typer()
@@ -207,36 +233,15 @@ class Base(SQLModel):
             )
 
         @app.command()
+        def api():
+            cls.run_api()
+
+        @app.command()
         def update():
             console.print(cls.interactive_update())
 
         return app
 
-
-# replace with alembic commands
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
-
-
-def create_heroes():
-    hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson").create()
-    hero_2 = Hero(name="Spider-Boy", secret_name="Pedro Parqueador").create()
-    hero_3 = Hero(name="Rusty-Man", secret_name="Tommy Sharp", age=48).create()
-
-
-def page_heroes():
-    next_page = 1
-    while next_page:
-        page = Hero.get_page(page=next_page, page_size=2)
-        console.print(page)
-        next_page = page.next_page
-
-
-def main():
-    create_db_and_tables()
-    create_heroes()
-    page_heroes()
-
-
-if __name__ == "__main__":
-    main()
+    @classmethod
+    def run_api(cls):
+        uvicorn.run(cls.api(), host="127.0.0.1", port=8000)

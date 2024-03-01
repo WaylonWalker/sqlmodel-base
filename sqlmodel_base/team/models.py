@@ -1,6 +1,5 @@
 from typing import Optional
 
-from rich.console import Console
 from sqlmodel import Field
 
 from sqlmodel_base.base import Base

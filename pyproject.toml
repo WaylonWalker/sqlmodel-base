@@ -24,7 +24,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = [ 'rich', 'sqlmodel', 'typer', 'iterfzf']
+dependencies = [ 'rich', 'sqlmodel', 'typer', 'iterfzf', 'fastapi', 'uvicorn']
 
 [project.urls]
 Documentation = "https://github.com/waylonwalker/sqlmodel-base#readme"
