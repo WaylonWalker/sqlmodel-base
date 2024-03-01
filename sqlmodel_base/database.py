@@ -8,7 +8,6 @@ sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 @lru_cache
 def get_engine():
-
     engine = create_engine(sqlite_url)
     SQLModel.metadata.create_all(engine)
     return engine

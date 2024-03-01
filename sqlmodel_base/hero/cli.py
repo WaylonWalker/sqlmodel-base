@@ -1,4 +1,3 @@
-
 from rich.console import Console
 
 from sqlmodel_base.database import get_engine
@@ -8,8 +7,6 @@ engine = get_engine()
 
 hero_app = Hero.cli
 console = Console()
-
-
 # @hero_app.callback()
 # def hero():
 #     "model cli"
