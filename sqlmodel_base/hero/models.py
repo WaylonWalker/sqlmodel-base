@@ -9,8 +9,7 @@ from sqlmodel_base.base import Base
 console = Console()
 
 
-class Hero(Base, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+class HeroBase(Base):
     name: str
     secret_name: str
     age: Optional[int] = None
@@ -23,3 +22,29 @@ class Hero(Base, table=True):
         if v > 0:
             return v
         return abs(v)
+
+
+class Hero(HeroBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+
+class HeroCreate(HeroBase):
+    __table_class__ = Hero
+    pass
+
+
+class HeroRead(HeroBase):
+    __table_class__ = Hero
+    id: int
+
+
+class HeroUpdate(Base, table=False):
+    __table_class__ = Hero
+    name: Optional[str]
+    secret_name: Optional[str]
+    age: Optional[int]
+    team_id: Optional[int]
+
+
+if __name__ == "__main__":
+    Hero.cli()
